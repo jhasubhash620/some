@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body.light {
+    /* Romantic background: soft pink gradient + subtle heart-pattern overlay */
+    background-color: #fff0f6;
+    background-image: 
+      radial-gradient(closest-side at 10% 10%, rgba(255,255,255,0.6), transparent 30%),
+      radial-gradient(closest-side at 90% 80%, rgba(255,240,245,0.5), transparent 20%),
+      linear-gradient(180deg, #fff5f7 0%, #ffeef8 50%, #fff0f6 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffd1e6' fill-opacity='0.18' d='M12 21s-6-4.35-9-7.22C-0.26 10.25 2.58 4 8 4c2.1 0 3.5 1.18 4 2.09C12.5 5.18 13.9 4 16 4c5.42 0 8.26 6.25 5 9.78C18 16.65 12 21 12 21z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+    background-size: cover, cover, cover, 120px 120px;
+    background-attachment: fixed;
+  }
+  body.dark {
+    /* Romantic dark background: deep rose/purple gradient + subtle heart overlay */
+    background-color: #1a0216;
+    background-image:
+      radial-gradient(closest-side at 20% 20%, rgba(255,200,220,0.06), transparent 20%),
+      radial-gradient(closest-side at 80% 80%, rgba(255,150,180,0.04), transparent 15%),
+      linear-gradient(180deg, #2b021e 0%, #3a0228 45%, #1a0216 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff6fa3' fill-opacity='0.08' d='M12 21s-6-4.35-9-7.22C-0.26 10.25 2.58 4 8 4c2.1 0 3.5 1.18 4 2.09C12.5 5.18 13.9 4 16 4c5.42 0 8.26 6.25 5 9.78C18 16.65 12 21 12 21z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+    background-size: cover, cover, cover, 160px 160px;
+    background-attachment: fixed;
+    color-scheme: dark;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600;
+  }
+  .dark .text-gradient {
+    @apply bg-gradient-to-r from-yellow-200 via-pink-400 to-pink-200;
+  }
+
+  /* Optional subtle shimmer for romantic sections */
+  @keyframes romantic-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .romantic-shimmer {
+    background-image: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 100%);
+    background-size: 200% 100%;
+    animation: romantic-shimmer 8s linear infinite;
+  }
+
+  /* Floating hearts animation */
+  @keyframes float-up {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    50% { transform: translateY(-40vh) scale(1.2); opacity: 0.9; }
+    100% { transform: translateY(-80vh) scale(0.9); opacity: 0; }
+  }
+
+  .floating-heart {
+    position: absolute;
+    font-size: 1.8rem;
+    opacity: 0.85;
+    animation: float-up 8s linear infinite;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .floating-heart.delay-1000 { animation-delay: 1s; }
+  .floating-heart.delay-1500 { animation-delay: 1.5s; }
+  .floating-heart.delay-2000 { animation-delay: 2s; }
+}
+
+/* Hero background focal adjustments */
+.hero-bg {
+  object-position: center 60%; /* default focus slightly lower to keep couple visible */
+}
+
+@media (max-width: 768px) {
+  .hero-bg {
+    object-position: center 40%; /* move focus up on narrow screens where height is limited */
+    filter: brightness(0.9) saturate(0.95);
+  }
+}
+
+@media (min-width: 1400px) {
+  .hero-bg {
+    object-position: center 65%;
+  }
+}
+
+/* Surprise reveal modal + confetti hearts */
+.confetti-heart {
+  position: absolute;
+  font-size: 1.2rem;
+  animation: confetti-float 3s linear forwards;
+  opacity: 0.95;
+}
+
+@keyframes confetti-float {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 1 }
+  100% { transform: translateY(-120vh) translateX(30vw) rotate(360deg) scale(0.6); opacity: 0 }
+}
+
+/* Stagger individual hearts with different starting positions */
+/* We'll position them with the generated classes in the DOM order */
+/* small helper placements to spread hearts */
+.confetti-0 { left: 10%; top: 80%; animation-delay: 0s }
+.confetti-1 { left: 20%; top: 85%; animation-delay: 0.1s }
+.confetti-2 { left: 30%; top: 82%; animation-delay: 0.2s }
+.confetti-3 { left: 40%; top: 84%; animation-delay: 0.05s }
+.confetti-4 { left: 50%; top: 86%; animation-delay: 0.15s }
+.confetti-5 { left: 60%; top: 80%; animation-delay: 0.25s }
+.confetti-6 { left: 70%; top: 85%; animation-delay: 0.05s }
+.confetti-7 { left: 80%; top: 82%; animation-delay: 0.12s }
+.confetti-8 { left: 15%; top: 88%; animation-delay: 0.3s }
+.confetti-9 { left: 25%; top: 86%; animation-delay: 0.18s }
+.confetti-10 { left: 35%; top: 87%; animation-delay: 0.22s }
+.confetti-11 { left: 45%; top: 88%; animation-delay: 0.28s }
+.confetti-12 { left: 55%; top: 86%; animation-delay: 0.32s }
+.confetti-13 { left: 65%; top: 85%; animation-delay: 0.36s }
+.confetti-14 { left: 75%; top: 87%; animation-delay: 0.4s }
+.confetti-15 { left: 85%; top: 86%; animation-delay: 0.44s }
+.confetti-16 { left: 12%; top: 83%; animation-delay: 0.48s }
+.confetti-17 { left: 22%; top: 84%; animation-delay: 0.52s }
+.confetti-18 { left: 32%; top: 83%; animation-delay: 0.56s }
+.confetti-19 { left: 42%; top: 85%; animation-delay: 0.6s }
+.confetti-20 { left: 52%; top: 84%; animation-delay: 0.64s }
+.confetti-21 { left: 62%; top: 83%; animation-delay: 0.68s }
+.confetti-22 { left: 72%; top: 84%; animation-delay: 0.72s }
+.confetti-23 { left: 82%; top: 83%; animation-delay: 0.76s }
+
+/* shake for wrong passphrase */
+@keyframes shakeX {
+  10%, 90% { transform: translateX(-1px) }
+  20%, 80% { transform: translateX(2px) }
+  30%, 50%, 70% { transform: translateX(-4px) }
+  40%, 60% { transform: translateX(4px) }
+}
+.shake { animation: shakeX 450ms cubic-bezier(.36,.07,.19,.97) both }
+
+/* Slideshow small tweaks */
+.slideshow-progress {
+  height: 4px;
+  background: linear-gradient(90deg,#ffb6d5,#ff8ab8);
+}
+
+/* Crossfade helper for slideshow images */
+.slideshow-image { position: relative; display: block; }
+.slideshow-image.prev { opacity: 0; }
+.slideshow-image.current { opacity: 1; transition: opacity 700ms ease-in-out; }
+
+/* Thumbnails */
+.slideshow-thumbs img { width: 88px; height: 48px; object-fit: cover }
+
